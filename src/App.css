@@ -1,0 +1,41 @@
+body {
+    background: #1c1c1c;
+    box-sizing: border-box;
+}
+.appContainer {
+    padding-top: 150px;
+}
+.counterContainer {
+    width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 3px solid #00ffd0;
+    border-radius: 10px;
+    color: black;
+}
+.buttonsContainer {
+    padding: 10px;
+    border: 3px solid #00ffd0;
+    border-radius: 10px;
+    text-align: center;
+}
+.buttonsContainer button {
+    padding: 10px 20px;
+    background: #00ffd0;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.buttonsContainer button[disabled] {
+    background: #4c9688;
+    color: black;
+}
+.buttonsContainer button:first-child {
+    margin-right: 10px;
+}
+.warningMessage {
+    margin-top: 15px;
+    padding: 5px 0;
+    color: white;
+    text-align: center;
+}
