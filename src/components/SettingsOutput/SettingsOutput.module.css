@@ -1,0 +1,31 @@
+.settingsOutput {
+    margin-bottom: 15px;
+    padding: 20px 10px;
+    border: 3px solid #00ffd0;
+    border-radius: 10px;
+}
+
+.settingsOutput label {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.settingsOutput input {
+    width: 100px;
+    margin-left: 20px;
+    padding: 5px;
+    background: #1c1c1c;
+    border: 2px solid #00ffd0;
+    border-radius: 10px;
+    color: #00ffd0;
+}
+
+.settingsOutput input:focus {
+    box-shadow: 0 0 10px #9f9f9f;
+    outline: none;
+}
+
+.settingsOutput input.error {
+    border-color: red;
+    color: red;
+}

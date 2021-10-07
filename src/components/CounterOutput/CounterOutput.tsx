@@ -2,19 +2,26 @@ import {FC} from "react";
 import styles from "./CounterOutput.module.css";
 
 type CounterOutputProps = {
-  counterValue: number
-  maxValue: number
+    counterValue: number
+    maxValue: number
+    settingsModeIsOn: boolean
+    inputError: boolean
 }
 
-export const CounterOutput: FC<CounterOutputProps> = ({counterValue, maxValue}) => {
-  const maxValueClass = `${counterValue === maxValue ? styles.maxValue : ""}`;
+export const CounterOutput: FC<CounterOutputProps> = (
+    {counterValue, maxValue, settingsModeIsOn, inputError}
+) => {
+    const maxValueClass =
+        `${counterValue === maxValue && !settingsModeIsOn ? styles.maxValue : ""}`;
 
-  const getValidClassName = () => `${styles.counterOutput} ${maxValueClass}`;
+    const getDisplayOutputClassName = () => `${styles.counterOutput} ${maxValueClass}`;
+    const getDisplayOutput = () => settingsModeIsOn ?
+        (inputError ? "Incorrect values" : "Set values") :
+        counterValue
 
-    return(
-    <div
-      className={getValidClassName()}>
-      {counterValue}
-    </div>
-  );
+    return (
+        <div className={getDisplayOutputClassName()}>
+            {getDisplayOutput()}
+        </div>
+    );
 }

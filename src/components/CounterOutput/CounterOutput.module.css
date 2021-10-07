@@ -5,6 +5,7 @@
     border-radius: 10px;
     text-align: center;
     font-size: 40px;
+    color: black;
 }
 .counterOutput.maxValue {
     color: red;
