@@ -7,10 +7,12 @@ body {
     max-width: 700px;
     margin: 0 auto;
     padding-top: 150px;
+}
+.counterContainer {
     display: grid;
     grid-template-columns: 6fr 6fr;
 }
-.counterContainer {
+.counterBlock {
     width: 250px;
     padding: 20px;
     border: 3px solid #00ffd0;
