@@ -1,0 +1,44 @@
+.counterContainer {
+    width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 3px solid #00ffd0;
+    border-radius: 10px;
+    color: black;
+}
+.displayOutput {
+    margin-bottom: 15px;
+    padding: 20px 10px;
+    background: #00ffd0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.displayOutput.maxValue {
+    color: red;
+    font-weight: bold;
+}
+
+.controlButtons {
+    padding: 10px;
+    border: 3px solid #00ffd0;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.controlButtons button {
+    padding: 10px 20px;
+    background: #00ffd0;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.controlButtons button[disabled] {
+    background: #4c9688;
+    color: black;
+}
+.controlButtons button:first-child {
+    margin-right: 10px;
+}
