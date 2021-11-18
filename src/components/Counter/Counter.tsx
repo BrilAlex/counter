@@ -1,49 +1,77 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import styles from "./Counter.module.css";
-import {Button} from "../Button/Button";
+import {Controls} from "../Controls/Controls";
+import {Settings} from "../Settings/Settings";
 
 type CounterPropsType = {
   counterValue: number
-  setCounterValue: (counterValue: number) => void
-  maxValue: number
   minValue: number
+  maxValue: number
+  settingsMode: boolean
+  inputError: boolean
+  setCounterValue: (value: number) => void
+  setMinValue: (value: number) => void
+  setMaxValue: (value: number) => void
+  setSettingsMode: (value: boolean) => void
+  setInputError: (value: boolean) => void
 };
 
-export const Counter: FC<CounterPropsType> = (props) => {
-  const {counterValue, setCounterValue, maxValue, minValue} = props;
-  const incDisabled = counterValue === maxValue;
-  const resetDisabled = counterValue === minValue;
-  const onClickIncHandler = () => {
-    if(counterValue < maxValue) {
-      setCounterValue(counterValue + 1);
+export const Counter: FC<CounterPropsType> = (
+  {
+    counterValue,
+    minValue,
+    maxValue,
+    settingsMode,
+    inputError,
+    setCounterValue,
+    setMinValue,
+    setMaxValue,
+    setSettingsMode,
+    setInputError
+  }
+) => {
+  useEffect(() => {
+    let minValueInLS = localStorage.getItem("counterMinValue");
+    let maxValueInLS = localStorage.getItem("counterMaxValue");
+    if (minValueInLS) {
+      setMinValue(JSON.parse(minValueInLS));
+      setCounterValue(JSON.parse(minValueInLS));
     }
-  };
-  const onClickResetHandler = () => {
-    setCounterValue(minValue);
-  };
-  const getDisplayOutputClassName = () => counterValue === maxValue
-      ?
-      `${styles.displayOutput} ${styles.maxValue}`
-      :
-      styles.displayOutput;
+    if (maxValueInLS) {
+      setMaxValue(JSON.parse(maxValueInLS));
+    }
+  }, []);
 
-  return(
+  useEffect(() => {
+    if (minValue >= maxValue || minValue < 0) {
+      setInputError(true);
+    } else {
+      setInputError(false);
+      localStorage.setItem("counterMinValue", JSON.stringify(minValue));
+      localStorage.setItem("counterMaxValue", JSON.stringify(maxValue));
+    }
+  }, [minValue, maxValue]);
+
+  return (
     <div className={styles.counterContainer}>
-      <div className={getDisplayOutputClassName()}>
-        {props.counterValue}
-      </div>
-      <div className={styles.controlButtons}>
-        <Button
-          title={"Inc"}
-          callback={onClickIncHandler}
-          disabled={incDisabled}
-        />
-        <Button
-          title={"Reset"}
-          callback={onClickResetHandler}
-          disabled={resetDisabled}
-        />
-      </div>
+      <Settings
+        minValue={minValue}
+        maxValue={maxValue}
+        settingsMode={settingsMode}
+        inputError={inputError}
+        setCounterValue={setCounterValue}
+        setMinValue={setMinValue}
+        setMaxValue={setMaxValue}
+        setSettingsMode={setSettingsMode}
+      />
+      <Controls
+        counterValue={counterValue}
+        minValue={minValue}
+        maxValue={maxValue}
+        settingsMode={settingsMode}
+        inputError={inputError}
+        setCounterValue={setCounterValue}
+      />
     </div>
   );
 };

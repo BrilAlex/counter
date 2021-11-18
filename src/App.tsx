@@ -4,16 +4,24 @@ import {Counter} from "./components/Counter/Counter";
 
 function App() {
   const [counterValue, setCounterValue] = useState<number>(0);
-  const maxValue = 5;
-  const minValue = 0;
+  const [minValue, setMinValue] = useState<number>(0);
+  const [maxValue, setMaxValue] = useState<number>(5);
+  const [settingsMode, setSettingsMode] = useState<boolean>(false);
+  const [inputError, setInputError] = useState<boolean>(false);
 
   return (
     <div className="App">
       <Counter
         counterValue={counterValue}
-        setCounterValue={setCounterValue}
-        maxValue={maxValue}
         minValue={minValue}
+        maxValue={maxValue}
+        settingsMode={settingsMode}
+        inputError={inputError}
+        setCounterValue={setCounterValue}
+        setMinValue={setMinValue}
+        setMaxValue={setMaxValue}
+        setSettingsMode={setSettingsMode}
+        setInputError={setInputError}
       />
     </div>
   );
