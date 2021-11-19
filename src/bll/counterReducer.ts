@@ -1,6 +1,3 @@
-import {Dispatch} from "redux";
-import {AppStateType} from "./store";
-
 export type InitialStateType = typeof initialState;
 
 type IncreaseValueActionType = ReturnType<typeof increaseValueAC>;
@@ -30,26 +27,6 @@ export const setSettingsModeAC = (settingsMode: boolean) =>
   ({type: "SET-SETTINGS-MODE", settingsMode} as const);
 export const setInputErrorAC = (inputError: boolean) =>
   ({type: "SET-INPUT-ERROR", inputError} as const);
-
-export const saveValuesToLocalStorageTC = () => (
-  dispatch: Dispatch, getState: () => AppStateType
-) => {
-  let minValue = getState().counter.minValue;
-  let maxValue = getState().counter.maxValue;
-  localStorage.setItem("counterMinValue", JSON.stringify(minValue));
-  localStorage.setItem("counterMaxValue", JSON.stringify(maxValue));
-};
-export const setValueFromLocalStorageTC = () => (dispatch: Dispatch) => {
-  let minValueInLS = localStorage.getItem("counterMinValue");
-  let maxValueInLS = localStorage.getItem("counterMaxValue");
-  if (minValueInLS) {
-    dispatch(setMinValueAC(JSON.parse(minValueInLS)));
-    dispatch(resetValueAC());
-  }
-  if (maxValueInLS) {
-    dispatch(setMaxValueAC(JSON.parse(maxValueInLS)));
-  }
-};
 
 export const counterReducer = (
   state: InitialStateType = initialState, action: ActionTypes

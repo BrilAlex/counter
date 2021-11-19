@@ -6,9 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {
   increaseValueAC,
-  InitialStateType, resetValueAC, saveValuesToLocalStorageTC,
+  InitialStateType, resetValueAC,
   setInputErrorAC, setMaxValueAC, setMinValueAC,
-  setSettingsModeAC, setValueFromLocalStorageTC
+  setSettingsModeAC,
 } from "../../bll/counterReducer";
 
 export const Counter = () => {
@@ -22,17 +22,12 @@ export const Counter = () => {
   const inputError = state.inputError;
 
   useEffect(() => {
-    dispatch(setValueFromLocalStorageTC());
-  }, []);
-
-  useEffect(() => {
     if (minValue >= maxValue || minValue < 0) {
       dispatch(setInputErrorAC(true));
     } else {
       dispatch(setInputErrorAC(false));
-      dispatch(saveValuesToLocalStorageTC());
     }
-  }, [minValue, maxValue]);
+  }, [minValue, maxValue, dispatch]);
 
   const increaseValue = () => {
     dispatch(increaseValueAC());
