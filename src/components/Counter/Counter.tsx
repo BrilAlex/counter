@@ -1,56 +1,55 @@
-import {FC, useEffect} from "react";
+import {useEffect} from "react";
 import styles from "./Counter.module.css";
 import {Controls} from "../Controls/Controls";
 import {Settings} from "../Settings/Settings";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../bll/store";
+import {
+  increaseValueAC,
+  InitialStateType, resetValueAC, saveValuesToLocalStorageTC,
+  setInputErrorAC, setMaxValueAC, setMinValueAC,
+  setSettingsModeAC, setValueFromLocalStorageTC
+} from "../../bll/counterReducer";
 
-type CounterPropsType = {
-  counterValue: number
-  minValue: number
-  maxValue: number
-  settingsMode: boolean
-  inputError: boolean
-  setCounterValue: (value: number) => void
-  setMinValue: (value: number) => void
-  setMaxValue: (value: number) => void
-  setSettingsMode: (value: boolean) => void
-  setInputError: (value: boolean) => void
-};
+export const Counter = () => {
+  const state = useSelector<AppStateType, InitialStateType>(state =>
+    state.counter);
+  const dispatch = useDispatch();
+  const counterValue = state.counterValue;
+  const minValue = state.minValue;
+  const maxValue = state.maxValue;
+  const settingsMode = state.settingsMode;
+  const inputError = state.inputError;
 
-export const Counter: FC<CounterPropsType> = (
-  {
-    counterValue,
-    minValue,
-    maxValue,
-    settingsMode,
-    inputError,
-    setCounterValue,
-    setMinValue,
-    setMaxValue,
-    setSettingsMode,
-    setInputError
-  }
-) => {
   useEffect(() => {
-    let minValueInLS = localStorage.getItem("counterMinValue");
-    let maxValueInLS = localStorage.getItem("counterMaxValue");
-    if (minValueInLS) {
-      setMinValue(JSON.parse(minValueInLS));
-      setCounterValue(JSON.parse(minValueInLS));
-    }
-    if (maxValueInLS) {
-      setMaxValue(JSON.parse(maxValueInLS));
-    }
+    dispatch(setValueFromLocalStorageTC());
   }, []);
 
   useEffect(() => {
     if (minValue >= maxValue || minValue < 0) {
-      setInputError(true);
+      dispatch(setInputErrorAC(true));
     } else {
-      setInputError(false);
-      localStorage.setItem("counterMinValue", JSON.stringify(minValue));
-      localStorage.setItem("counterMaxValue", JSON.stringify(maxValue));
+      dispatch(setInputErrorAC(false));
+      dispatch(saveValuesToLocalStorageTC());
     }
   }, [minValue, maxValue]);
+
+  const increaseValue = () => {
+    dispatch(increaseValueAC());
+  };
+  const resetValue = () => {
+    dispatch(resetValueAC());
+  };
+  const setMinValue = (value: number) => {
+    dispatch(setMinValueAC(value));
+  };
+  const setMaxValue = (value: number) => {
+    dispatch(setMaxValueAC(value));
+  };
+  const setSettingsMode = (value: boolean) => {
+    dispatch(resetValueAC());
+    dispatch(setSettingsModeAC(value));
+  };
 
   return (
     <div className={styles.counterContainer}>
@@ -59,18 +58,18 @@ export const Counter: FC<CounterPropsType> = (
         maxValue={maxValue}
         settingsMode={settingsMode}
         inputError={inputError}
-        setCounterValue={setCounterValue}
         setMinValue={setMinValue}
         setMaxValue={setMaxValue}
         setSettingsMode={setSettingsMode}
       />
       <Controls
-        counterValue={counterValue}
         minValue={minValue}
         maxValue={maxValue}
+        counterValue={counterValue}
         settingsMode={settingsMode}
         inputError={inputError}
-        setCounterValue={setCounterValue}
+        increaseValue={increaseValue}
+        resetValue={resetValue}
       />
     </div>
   );

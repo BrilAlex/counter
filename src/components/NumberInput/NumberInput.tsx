@@ -5,10 +5,11 @@ type NumberInputPropsType = {
   name: string
   value: number
   onChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void
+  inputClassName: string
 }
 
 export const NumberInput: FC<NumberInputPropsType> = (
-  {label, name, value, onChangeCallback}
+  {label, name, value, onChangeCallback, inputClassName}
 ) => {
   return (
     <label>
@@ -18,6 +19,7 @@ export const NumberInput: FC<NumberInputPropsType> = (
         name={name}
         value={value}
         onChange={onChangeCallback}
+        className={inputClassName}
       />
     </label>
   );

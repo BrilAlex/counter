@@ -8,7 +8,6 @@ type SettingsPropsType = {
   maxValue: number
   settingsMode: boolean
   inputError: boolean
-  setCounterValue: (value: number) => void
   setMinValue: (value: number) => void
   setMaxValue: (value: number) => void
   setSettingsMode: (value: boolean) => void
@@ -20,13 +19,17 @@ export const Settings: FC<SettingsPropsType> = (
     maxValue,
     settingsMode,
     inputError,
-    setCounterValue,
     setMinValue,
     setMaxValue,
-    setSettingsMode
+    setSettingsMode,
   }
 ) => {
   const setDisabled = !settingsMode || inputError;
+  let minValueError = minValue >= maxValue || minValue < 0;
+  let maxValueError = minValue >= maxValue || maxValue < 0;
+
+  const getMinValueInputClassName = () => minValueError ? styles.error : "";
+  const getMaxValueInputClassName = () => maxValueError ? styles.error : "";
 
   const activateSettingsMode = (e: ChangeEvent<HTMLInputElement>) => {
     let currentValue = Number(e.currentTarget.value);
@@ -44,7 +47,6 @@ export const Settings: FC<SettingsPropsType> = (
   };
 
   const saveSettings = () => {
-    setCounterValue(minValue);
     setSettingsMode(false);
   };
 
@@ -56,12 +58,14 @@ export const Settings: FC<SettingsPropsType> = (
           name={"minValue"}
           value={minValue}
           onChangeCallback={activateSettingsMode}
+          inputClassName={getMinValueInputClassName()}
         />
         <NumberInput
           label={"Max value"}
           name={"maxValue"}
           value={maxValue}
           onChangeCallback={activateSettingsMode}
+          inputClassName={getMaxValueInputClassName()}
         />
       </div>
       <div className={styles.controlButtons}>

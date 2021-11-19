@@ -3,22 +3,24 @@ import styles from "../Counter/Counter.module.css";
 import {Button} from "../Button/Button";
 
 type ControlsPropsType = {
-  counterValue: number
   minValue: number
   maxValue: number
+  counterValue: number
   settingsMode: boolean
   inputError: boolean
-  setCounterValue: (value: number) => void
+  increaseValue: () => void
+  resetValue: () => void
 };
 
 export const Controls: FC<ControlsPropsType> = (
   {
-    counterValue,
     minValue,
     maxValue,
+    counterValue,
     settingsMode,
     inputError,
-    setCounterValue
+    increaseValue,
+    resetValue,
   }
 ) => {
   const incDisabled = counterValue === maxValue || settingsMode;
@@ -26,16 +28,17 @@ export const Controls: FC<ControlsPropsType> = (
 
   const increaseCounter = () => {
     if (counterValue < maxValue) {
-      setCounterValue(counterValue + 1);
+      increaseValue();
     }
   };
   const resetCounter = () => {
-    setCounterValue(minValue);
+    resetValue();
   };
 
-  const getDisplayOutputClassName = () => counterValue === maxValue && !inputError
-    ? `${styles.displayOutput} ${styles.maxValue}`
-    : styles.displayOutput;
+  const getDisplayOutputClassName = () =>
+    counterValue === maxValue && !inputError && !settingsMode
+      ? `${styles.displayOutput} ${styles.maxValue}`
+      : styles.displayOutput;
 
   const getCounterDisplayOutputValue = () => !settingsMode
     ? counterValue
