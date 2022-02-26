@@ -2,14 +2,12 @@ import {FC} from "react";
 
 type ButtonPropsType = {
   title: string
+  disabled: boolean
   callback: () => void
-  disabled?: boolean
 };
 
-export const Button: FC<ButtonPropsType> = (
-  {title, callback, disabled}
-) => {
-  return <button onClick={callback} disabled={disabled}>
-    {title}
-  </button>;
+export const Button: FC<ButtonPropsType> = (props) => {
+  return (
+    <button onClick={props.callback} disabled={props.disabled}>{props.title}</button>
+  );
 };
