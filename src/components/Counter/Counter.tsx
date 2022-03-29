@@ -1,47 +1,39 @@
 import {FC} from "react";
 import {Button} from "../Button/Button";
-import styles from "./Counter.module.css";
+import s from "./CounterContainer.module.css";
 
 type CounterPropsType = {
   minValue: number
   maxValue: number
-  currentValue: number
-  setCurrentValue: (value: number) => void
+  currentValue: number | string
+  increaseValue: () => void
+  resetValue: () => void
 };
 
-export const Counter: FC<CounterPropsType> = (
-  {minValue, maxValue, currentValue, setCurrentValue}
-) => {
-  const increaseHandler = () => {
-    if (currentValue < maxValue) {
-      setCurrentValue(currentValue + 1);
-    }
-  };
+export const Counter: FC<CounterPropsType> = (props) => {
+  const {minValue, maxValue, currentValue, increaseValue, resetValue} = props;
 
-  const resetHandler = () => {
-    setCurrentValue(minValue);
-  };
+  const settingsStyle = currentValue === "Incorrect value!"
+    ? `${s.settingsDisplay} ${s.error}` : s.settingsDisplay;
 
-  const counterOutputClassName = currentValue === maxValue
-      ? `${styles.counterOutput} ${styles.maxValue}`
-      : styles.counterOutput;
+  const counterStyle = currentValue ===
+  maxValue ? `${s.counterDisplay} ${s.error} ${s.maxValue}` : s.counterDisplay;
+
+  const displayStyle = typeof currentValue === "string" ? settingsStyle : counterStyle;
+
+  const counterOutputClassName = `${s.displayBlock} ${displayStyle}`;
+
+  const incButtonDisabled = currentValue === maxValue || typeof currentValue === "string";
+  const resetButtonDisabled = currentValue === minValue || typeof currentValue == "string";
 
   return (
-    <div className={styles.counterContainer}>
+    <div className={s.counterBlock}>
       <div className={counterOutputClassName}>
         {currentValue}
       </div>
-      <div className={styles.buttonsContainer}>
-        <Button
-          title={"Inc"}
-          disabled={currentValue === maxValue}
-          callback={increaseHandler}
-        />
-        <Button
-          title={"Reset"}
-          disabled={currentValue === minValue}
-          callback={resetHandler}
-        />
+      <div className={s.buttonsContainer}>
+        <Button title={"Inc"} callback={increaseValue} disabled={incButtonDisabled}/>
+        <Button title={"Reset"} callback={resetValue} disabled={resetButtonDisabled}/>
       </div>
     </div>
   );

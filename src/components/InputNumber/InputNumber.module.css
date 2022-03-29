@@ -1,0 +1,21 @@
+.label {
+    display: block;
+}
+
+.labelSpan {
+    margin-right: 10px;
+}
+
+.input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 2px solid  #61dafb;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+}
+
+.error {
+    background: lightcoral;
+    border-color: red;
+}

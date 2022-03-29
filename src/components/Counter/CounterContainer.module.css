@@ -1,0 +1,53 @@
+.counterContainer {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.counterBlock {
+    width: 320px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+}
+
+.displayBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    height: 110px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    color: #61dafb;
+    font-weight: bold;
+}
+
+.counterDisplay {
+    font-size: 40px;
+}
+
+.settingsDisplay {
+    font-size: 20px;
+}
+
+.error {
+    color: red;
+}
+
+.maxValue {
+    font-size: 50px;
+}
+
+.buttonsContainer {
+    padding: 10px;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+}
