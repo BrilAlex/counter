@@ -3,6 +3,7 @@ import './App.css';
 import {CounterContainer} from "./components/Counter/CounterContainer";
 import {restoreValueFromLS, saveValueToLS} from "./localStorage/localStorage";
 import {CounterContainerV2} from "./components/CounterV2/CounterContainerV2";
+import {Button} from "./components/Button/Button";
 
 function App() {
   const [minValue, setMinValue] = useState(0);
@@ -13,7 +14,7 @@ function App() {
   const [maxValueV2, setMaxValueV2] = useState(5);
   const [currentValueV2, setCurrentValueV2] = useState<number>(minValueV2);
 
-  const [settingsMode, setSettingsMode] = useState(false);
+  const [withSettingsMode, setWithSettingsMode] = useState(false);
 
   useEffect(() => {
     setMinValue(restoreValueFromLS("counter_minValue", 0));
@@ -35,26 +36,33 @@ function App() {
     saveValueToLS("counterV2_maxValue", maxValue);
   };
 
+  const toggleCounterMode = () => {
+    setWithSettingsMode(!withSettingsMode);
+  };
+
   return (
     <div className="App">
-      <CounterContainer
-        minValue={minValue}
-        maxValue={maxValue}
-        currentValue={currentValue}
-        setMinValue={setMinValue}
-        setMaxValue={setMaxValue}
-        setCurrentValue={setCurrentValue}
-        saveState={saveState}
-      />
-      <CounterContainerV2
-        minValue={minValueV2}
-        maxValue={maxValueV2}
-        currentValue={currentValueV2}
-        setMinValue={setMinValueV2}
-        setMaxValue={setMaxValueV2}
-        setCurrentValue={setCurrentValueV2}
-        saveState={saveStateV2}
-      />
+      <Button title={"Switch mode"} callback={toggleCounterMode}/>
+      {withSettingsMode ?
+        <CounterContainer
+          minValue={minValue}
+          maxValue={maxValue}
+          currentValue={currentValue}
+          setMinValue={setMinValue}
+          setMaxValue={setMaxValue}
+          setCurrentValue={setCurrentValue}
+          saveState={saveState}
+        />
+        :
+        <CounterContainerV2
+          minValue={minValueV2}
+          maxValue={maxValueV2}
+          currentValue={currentValueV2}
+          setMinValue={setMinValueV2}
+          setMaxValue={setMaxValueV2}
+          setCurrentValue={setCurrentValueV2}
+          saveState={saveStateV2}
+        />}
     </div>
   );
 }
