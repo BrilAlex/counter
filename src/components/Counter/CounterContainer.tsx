@@ -10,7 +10,7 @@ type CounterContainerPropsType = {
   setMinValue: (value: number) => void
   setMaxValue: (value: number) => void
   setCurrentValue: (value: number | string) => void
-  saveSettingsToLS: () => void
+  saveState: (minValue: number, maxValue: number) => void
 };
 
 export const CounterContainer: FC<CounterContainerPropsType> = (props) => {
@@ -21,7 +21,7 @@ export const CounterContainer: FC<CounterContainerPropsType> = (props) => {
     setMinValue,
     setMaxValue,
     setCurrentValue,
-    saveSettingsToLS
+    saveState
   } = props;
 
   const changeValueInSettings = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ export const CounterContainer: FC<CounterContainerPropsType> = (props) => {
 
   const saveSettings = () => {
     setCurrentValue(minValue);
-    saveSettingsToLS();
+    saveState(minValue, maxValue);
   };
 
   const increaseValue = () => {

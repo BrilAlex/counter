@@ -1,29 +1,26 @@
 import {ChangeEvent, FC} from "react";
 import {Button} from "../Button/Button";
 import {InputNumber} from "../InputNumber/InputNumber";
-import s from "./CounterContainer.module.css";
+import s from "../Counter/CounterContainer.module.css";
 
-type SettingsPropsType = {
+type SettingsV2PropsType = {
   minValue: number
   maxValue: number
-  currentValue: number | string
   changeMinValue: (e: ChangeEvent<HTMLInputElement>) => void
   changeMaxValue: (e: ChangeEvent<HTMLInputElement>) => void
   saveSettings: () => void
 };
 
-export const Settings: FC<SettingsPropsType> = (props) => {
+export const SettingsV2: FC<SettingsV2PropsType> = (props) => {
   const {
     minValue,
     maxValue,
-    currentValue,
     changeMinValue,
     changeMaxValue,
     saveSettings
   } = props;
 
-  const setButtonDisabled =
-    typeof currentValue === "number" || minValue >= maxValue || minValue < 0;
+  const setButtonDisabled = minValue >= maxValue || minValue < 0;
   const minInputError = minValue >= maxValue || minValue < 0;
   const maxInputError = minValue >= maxValue;
 
