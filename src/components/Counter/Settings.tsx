@@ -6,9 +6,8 @@ import s from "./CounterContainer.module.css";
 type SettingsPropsType = {
   minValue: number
   maxValue: number
-  currentValue: number | string
-  changeMinValue: (e: ChangeEvent<HTMLInputElement>) => void
-  changeMaxValue: (e: ChangeEvent<HTMLInputElement>) => void
+  currentValue?: number | string
+  changeValue: (e: ChangeEvent<HTMLInputElement>) => void
   saveSettings: () => void
 };
 
@@ -17,15 +16,14 @@ export const Settings: FC<SettingsPropsType> = (props) => {
     minValue,
     maxValue,
     currentValue,
-    changeMinValue,
-    changeMaxValue,
+    changeValue,
     saveSettings
   } = props;
 
-  const setButtonDisabled =
-    typeof currentValue === "number" || minValue >= maxValue || minValue < 0;
   const minInputError = minValue >= maxValue || minValue < 0;
-  const maxInputError = minValue >= maxValue;
+  const maxInputError = minValue >= maxValue || maxValue <= 0;
+  const setButtonDisabled =
+    typeof currentValue === "number" || minInputError || maxInputError;
 
   return (
     <div className={s.counterBlock}>
@@ -34,14 +32,14 @@ export const Settings: FC<SettingsPropsType> = (props) => {
           labelSpan={"Max value:"}
           name={"maxValue"}
           value={maxValue}
-          onChange={changeMaxValue}
+          onChange={changeValue}
           error={maxInputError}
         />
         <InputNumber
           labelSpan={"Min value:"}
           name={"minValue"}
           value={minValue}
-          onChange={changeMinValue}
+          onChange={changeValue}
           error={minInputError}
         />
       </div>

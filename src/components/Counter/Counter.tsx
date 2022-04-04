@@ -8,10 +8,11 @@ type CounterPropsType = {
   currentValue: number | string
   increaseValue: () => void
   resetValue: () => void
+  showSettings?: () => void
 };
 
 export const Counter: FC<CounterPropsType> = (props) => {
-  const {minValue, maxValue, currentValue, increaseValue, resetValue} = props;
+  const {minValue, maxValue, currentValue, increaseValue, resetValue, showSettings} = props;
 
   const settingsStyle = currentValue === "Incorrect value!"
     ? `${s.settingsDisplay} ${s.error}` : s.settingsDisplay;
@@ -34,6 +35,7 @@ export const Counter: FC<CounterPropsType> = (props) => {
       <div className={s.buttonsContainer}>
         <Button title={"Inc"} callback={increaseValue} disabled={incButtonDisabled}/>
         <Button title={"Reset"} callback={resetValue} disabled={resetButtonDisabled}/>
+        {showSettings && <Button title={"Set"} callback={showSettings}/>}
       </div>
     </div>
   );
