@@ -1,6 +1,3 @@
-import {Dispatch} from "redux";
-import {restoreValueFromLS, saveValueToLS} from "../localStorage/localStorage";
-
 type CounterInitStateType = typeof initState;
 
 type IncValueActionType = ReturnType<typeof increaseValueAC>;
@@ -44,18 +41,4 @@ export const counterReducer = (state: CounterInitStateType = initState, action: 
     default:
       return state;
   }
-};
-
-export const saveSettingsTC = (minValue: number, maxValue: number) => (dispatch: Dispatch) => {
-  saveValueToLS("counter_minValue", minValue);
-  saveValueToLS("counter_maxValue", maxValue);
-  dispatch(saveSettingsAC());
-};
-
-export const getSettingsFromLocalStorageTC = () => (dispatch: Dispatch) => {
-  const minValue = restoreValueFromLS("counter_minValue", 0);
-  const maxValue = restoreValueFromLS("counter_maxValue", 5);
-  dispatch(setMinValueAC(minValue));
-  dispatch(setMaxValueAC(maxValue));
-  dispatch(resetValueAC());
 };

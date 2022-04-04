@@ -22,8 +22,7 @@ export const Settings: FC<SettingsPropsType> = (props) => {
 
   const minInputError = minValue >= maxValue || minValue < 0;
   const maxInputError = minValue >= maxValue || maxValue <= 0;
-  const setButtonDisabled =
-    typeof currentValue === "number" || minInputError || maxInputError;
+  const setButtonDisabled = typeof currentValue === "number" || minInputError || maxInputError;
 
   return (
     <div className={s.counterBlock}>

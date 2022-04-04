@@ -14,11 +14,11 @@ type CounterPropsType = {
 export const Counter: FC<CounterPropsType> = (props) => {
   const {minValue, maxValue, currentValue, increaseValue, resetValue, showSettings} = props;
 
-  const settingsStyle = currentValue === "Incorrect value!"
-    ? `${s.settingsDisplay} ${s.error}` : s.settingsDisplay;
+  const settingsStyle = currentValue === "Incorrect value!" ?
+    `${s.settingsDisplay} ${s.error}` : s.settingsDisplay;
 
-  const counterStyle = currentValue ===
-  maxValue ? `${s.counterDisplay} ${s.error} ${s.maxValue}` : s.counterDisplay;
+  const counterStyle = currentValue === maxValue ?
+    `${s.counterDisplay} ${s.error} ${s.maxValue}` : s.counterDisplay;
 
   const displayStyle = typeof currentValue === "string" ? settingsStyle : counterStyle;
 

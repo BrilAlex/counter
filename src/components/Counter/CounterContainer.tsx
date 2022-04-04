@@ -1,14 +1,13 @@
-import React, {ChangeEvent, FC, useEffect, useState} from "react";
+import React, {ChangeEvent, FC, useState} from "react";
 import {Counter} from "./Counter";
 import {Settings} from "./Settings";
 import s from "./CounterContainer.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../bll/store";
 import {
-  displayMessageAC, getSettingsFromLocalStorageTC,
+  displayMessageAC,
   increaseValueAC,
-  resetValueAC,
-  saveSettingsTC,
+  resetValueAC, saveSettingsAC,
   setMaxValueAC,
   setMinValueAC
 } from "../../bll/counterReducer";
@@ -32,10 +31,6 @@ export const CounterContainer: FC = () => {
   const activateSettings = () => {
     setSettingsMode(true);
   };
-
-  useEffect(() => {
-    dispatch(getSettingsFromLocalStorageTC());
-  }, []);
 
   const displayValue = displayMessage ? displayMessage : currentValue;
 
@@ -62,7 +57,7 @@ export const CounterContainer: FC = () => {
   };
 
   const saveSettings = () => {
-    dispatch(saveSettingsTC(minValue, maxValue));
+    dispatch(saveSettingsAC());
     setSettingsMode(false);
   };
 
